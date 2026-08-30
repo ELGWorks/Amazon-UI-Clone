@@ -1,6 +1,6 @@
 import {validateDeliveryOption} from './deliveryOptions.js';
 
-class Cart {
+export class Cart {
     cartItems;
     #localStorageKey;
 
@@ -179,7 +179,7 @@ class Cart {
 // const cart = Cart('cart-oop');
 // const businessCart = Cart('cart-business');
 
-const cart = new Cart('cart-oop');
+export const cart = new Cart('cart-oop');
 const businessCart = new Cart('cart-business');
 
 
@@ -189,6 +189,6 @@ const businessCart = new Cart('cart-business');
 // cart.loadFromStorage();
 // businessCart.loadFromStorage();
 
-console.log(cart);
-console.log(businessCart);
-console.log(businessCart instanceof Cart);
+// console.log(cart);
+// console.log(businessCart);
+// console.log(businessCart instanceof Cart);
