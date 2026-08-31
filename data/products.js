@@ -126,7 +126,7 @@ export function loadProductsFetch() {
 }
 
 loadProductsFetch().then(() => {
-  console.log('33rd step');
+  console.log('2nd step');
 });
 
 export function loadProducts(fun) {
