@@ -34,7 +34,7 @@ function renderProductsGrid() {
         </div>
 
         <div class="product-quantity-container">
-          <select>
+          <select class="js-quantity-select" data-product-id="${product.id}">
             <option selected value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -52,7 +52,7 @@ function renderProductsGrid() {
 
         <div class="product-spacer"></div>
 
-        <div class="added-to-cart">
+        <div class="added-to-cart js-added-to-cart" data-product-id="${product.id}">
           <img src="images/icons/checkmark.png">
           Added
         </div>
@@ -73,17 +73,42 @@ function renderProductsGrid() {
     cart.cartItems.forEach((cartItem) => {
       cartQuantity += cartItem.quantity;
     });
-
+    
     document.querySelector('.js-cart-quantity')
-      .innerHTML = cartQuantity;
+    .innerHTML = cartQuantity;
   }
 
-  document.querySelectorAll('.js-add-to-cart')
-    .forEach((button) => {
-      button.addEventListener('click', () => {
-        const productId = button.dataset.productId;
-        cart.addToCart(productId);
-        updateCartQuantity();
-      });
+  updateCartQuantity();
+
+ document.querySelectorAll('.js-add-to-cart')
+  .forEach((button) => {
+    let timerId;
+
+    button.addEventListener('click', () => {
+
+      const productId = button.dataset.productId;
+
+      const select = document.querySelector(
+        `.js-quantity-select[data-product-id="${productId}"]`
+      );
+
+      const quantity = Number(select.value);
+
+      cart.addToCart(productId, quantity);
+
+      updateCartQuantity();
+
+      const message = document.querySelector(
+        `.js-added-to-cart[data-product-id="${productId}"]`
+      );
+
+      message.classList.add('added-to-cart-visible');
+
+      clearTimeout(timerId);
+
+      timerId = setTimeout(() => {
+        message.classList.remove('added-to-cart-visible');
+      }, 2000);
     });
+  });
 }

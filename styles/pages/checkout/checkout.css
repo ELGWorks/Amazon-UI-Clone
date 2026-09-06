@@ -209,3 +209,74 @@
   margin-top: 11px;
   margin-bottom: 15px;
 }
+
+.quantity-input {
+  width: 30px;
+  display: none;
+}
+
+.save-quantity-link {
+  display: none;
+}
+
+.is-editing-quantity .quantity-input {
+  display: initial;
+}
+
+.is-editing-quantity .save-quantity-link {
+  display: initial;
+}
+
+.is-editing-quantity .quantity-label {
+  display: none;
+}
+
+.is-editing-quantity .update-quantity-link {
+  display: none;
+}
+
+.modal-confirm {
+  background-color: rgb(255, 250, 250);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 15px;
+  border-color: black;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+
+  padding: 30px;
+  display: none;
+}
+
+.modal-button-confirm {
+  background-color: rgb(247, 202, 0);
+  border: 1px solid rgb(242, 194, 0);
+  width: 100px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border-radius: 8px;
+
+  margin-top: 11px;
+}
+
+.button-container,
+.text-confirm {
+  display: flex;
+  gap: 20px;
+
+  width: 100%;
+}
+
+.text-confirm {
+  margin-bottom: 30px;
+}
+
+.confirm {
+  font-size: 20px;
+  color: rgb(0, 0, 0);
+}
+
+.reveal-confirm-modal {
+  display: block;
+}

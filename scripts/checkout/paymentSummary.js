@@ -6,6 +6,15 @@ import {formatCurrency} from '../utils/money.js';
 import {addOrder} from '../../data/orders.js';
 
 export function renderPaymentSummary() {
+  let cartQuantity = 0;
+
+  cart.cartItems.forEach((cartItem) => {
+    cartQuantity += cartItem.quantity;
+  });
+
+  document.querySelector('.js-return-to-home-link')
+    .innerHTML = `${cartQuantity} items`;
+
   let productPriceCents = 0;
   let shippingPriceCents = 0;
 
@@ -69,7 +78,7 @@ export function renderPaymentSummary() {
   document.querySelector('.js-payment-summary')
     .innerHTML = paymentSummaryHTML;
 
-  document.querySelector('.js-place-order')
+  document.querySelector('.js-modal-button-yes')
     .addEventListener('click', async () => {
       try {
         const response = await fetch('https://supersimplebackend.dev/orders', {
@@ -90,5 +99,27 @@ export function renderPaymentSummary() {
       }
       
       window.location.href = 'orders.html';
+    });
+
+    document.querySelector('.js-place-order')
+    .addEventListener('click', () => {
+      const container = document.querySelector(
+        `.modal-confirm`
+      );
+
+      container.classList.add('reveal-confirm-modal');
+      document.querySelector('.main').style.opacity = '0.3';
+      document.querySelector('.main').style.pointerEvents = 'none';
+    });
+
+    document.querySelector('.js-modal-button-no')
+    .addEventListener('click', () => {
+      const container = document.querySelector(
+        `.modal-confirm`
+      );
+
+      container.classList.remove('reveal-confirm-modal');
+      document.querySelector('.main').style.opacity = '1';
+      document.querySelector('.main').style.pointerEvents = 'auto';
     });
 }
