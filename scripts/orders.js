@@ -3,7 +3,7 @@ import {orders} from '../data/orders.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import {formatCurrency} from './utils/money.js';
 import {getProduct, loadProductsFetch} from '../data/products.js';
-import {getDeliveryOption} from '../data/deliveryOptions.js';
+import {cart} from '../data/cart-class.js';
 
 async function renderOrderPage() {
     await loadProductsFetch();
@@ -44,7 +44,16 @@ async function renderOrderPage() {
           </div>`;
       });
 
-    document.querySelector('.js-orders-grid').innerHTML = ordersHTML;
+  document.querySelector('.js-orders-grid').innerHTML = ordersHTML;
+
+  document.querySelectorAll('.js-buy-again-button').forEach((button) => {
+    button.addEventListener('click', () => {
+      const productId = button.dataset.productId;
+      const quantity = 1;
+      cart.addToCart(productId, quantity);
+      window.location.href = 'checkout.html';
+    });
+  });
 };
 
 function renderOrderDetails(order) {
@@ -55,8 +64,7 @@ function renderOrderDetails(order) {
 
       const productDetails = getProduct(product.productId);
 
-      const productArrive = getDeliveryOption(product.deliveryOptionId);
-      const arrivingDate = dayjs(order.orderTime).add(productArrive.deliveryDays, 'day').format('MMMM D');
+      const arrivingDate = dayjs(product.estimatedDeliveryTime).format('MMMM D');
 
       productDetailsHTML += `
       <div class="product-image-container">
@@ -73,20 +81,22 @@ function renderOrderDetails(order) {
           <div class="product-quantity">
             Quantity: ${product.quantity}
           </div>
-          <button class="buy-again-button button-primary">
+          <button class="buy-again-button button-primary js-buy-again-button" data-product-id="${product.productId}">
             <img class="buy-again-icon" src="images/icons/buy-again.png">
             <span class="buy-again-message">Buy it again</span>
           </button>
         </div>
 
         <div class="product-actions">
-          <a href="tracking.html?orderId=${order.id}&productId=${product.id}">
+          <a href="tracking.html?orderId=${order.id}&productId=${product.productId}">
             <button class="track-package-button button-secondary">
               Track package
             </button>
           </a>
         </div>`;
   });
+
   return productDetailsHTML;
 };
+
 renderOrderPage();

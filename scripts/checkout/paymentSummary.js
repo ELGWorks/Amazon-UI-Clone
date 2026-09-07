@@ -93,12 +93,13 @@ export function renderPaymentSummary() {
 
         const order = await response.json();
         addOrder(order);
-
+        
+        cart.cartItems = [];
+        cart.saveToStorage();
+        window.location.href = 'orders.html';
       } catch (error) {
         console.log('unexpected error. try again later')
       }
-      
-      window.location.href = 'orders.html';
     });
 
     document.querySelector('.js-place-order')
@@ -116,7 +117,7 @@ export function renderPaymentSummary() {
     .addEventListener('click', () => {
       const container = document.querySelector(
         `.modal-confirm`
-      );
+    );
 
       container.classList.remove('reveal-confirm-modal');
       document.querySelector('.main').style.opacity = '1';
