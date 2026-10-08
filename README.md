@@ -1,7 +1,7 @@
 # 📓 Amazon UI Clone
 
 <p align="center">
-  <img src="assets/demo/images/demo.png.png" alt="Amazon UI Clone" width="800"/>
+  <img src="assets/demo/images/demo.png" alt="Amazon UI Clone" width="800"/>
 </p>
 
 <p align="center">
