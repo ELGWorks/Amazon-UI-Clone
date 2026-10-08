@@ -99,4 +99,17 @@ function renderOrderDetails(order) {
   return productDetailsHTML;
 };
 
+function updateCartQuantity() {
+    let cartQuantity = 0;
+
+    cart.cartItems.forEach((cartItem) => {
+        cartQuantity += cartItem.quantity;
+    });
+
+    document.querySelector('.js-cart-quantity')
+    .innerHTML = cartQuantity;
+}
+
+updateCartQuantity();
+
 renderOrderPage();
